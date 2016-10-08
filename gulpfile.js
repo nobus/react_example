@@ -87,3 +87,5 @@ gulp.task('build', [
 gulp.task('clean', function (cb) {
     rimraf(path.clean, cb);
 });
+
+gulp.task('default', ['build', 'webserver']);
