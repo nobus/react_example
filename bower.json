@@ -1,0 +1,25 @@
+{
+  "name": "weaver",
+  "description": "Weaver simulator",
+  "main": "",
+  "authors": [
+    "nobus"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "weaving"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "^15.3.2",
+    "normalize-css": "normalize.css#^5.0.0"
+  }
+}
