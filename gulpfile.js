@@ -75,7 +75,7 @@ gulp.task('copy:react-dom', function () {
 gulp.task('build:jsx', function () {
   gulp.src(path.src.jsx)
     .pipe(react())
-    .pipe(babel())
+    .pipe(babel({presets: ['es2015']}))
     .pipe(concat('main.js'))
     .pipe(gulp.dest(path.build.js));
 });
