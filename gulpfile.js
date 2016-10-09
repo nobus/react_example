@@ -72,10 +72,10 @@ gulp.task('build:js', function () {
 });
 
 gulp.task('build:style', function () {
-    gulp.src(path.src.style)
-        .pipe(cssmin())
-        .pipe(gulp.dest(path.build.style))
-        .pipe(reload({stream: true}));
+  gulp.src(path.src.style)
+    .pipe(cssmin())
+    .pipe(gulp.dest(path.build.style))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('clean', function () {
