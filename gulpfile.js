@@ -22,7 +22,6 @@ const path = {
     style: 'src/css/weaver.css'
   },
   build: {
-    jsx: 'src/js/modules/',
     html: 'build/',
     react: 'build/js/react.js',
     reactDom: 'build/js/react-dom.js',
@@ -95,7 +94,7 @@ gulp.task('build:style', function () {
 });
 
 gulp.task('clean', function () {
-  del([path.build.jsx, path.build.html]);
+  del([path.build.html]);
 });
 
 gulp.task('build', [
