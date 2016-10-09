@@ -4,7 +4,7 @@
   "description": "Weaver simulator",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx src/js"
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx src/jsx"
   },
   "author": "nobus",
   "license": "MIT",
