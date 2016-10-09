@@ -7,23 +7,23 @@ const gulp = require('gulp'),
       babel = require('gulp-babel'),
       cssmin = require('gulp-minify-css'),
       rimraf = require('rimraf'),
+      del = require('del'),
       browserSync = require('browser-sync'),
       reload = browserSync.reload;
 
 const path = {
   src: {
+    jsx: 'src/jsx/*.jsx',
     html: 'src/index.html',
-    jsx: 'src/js/modules/*.jsx',
     js: 'src/js/main.js',
     style: 'src/css/weaver.css'
   },
   build: {
+    jsx: 'src/js/modules/',
     html: 'build/',
-    jsx: 'build/jsx/',
     js: 'build/js/',
-    css: 'build/css/'
-  },
-  clean: './build'
+    style: 'build/css/'
+  }
 };
 
 const config = {
@@ -74,8 +74,12 @@ gulp.task('build:js', function () {
 gulp.task('build:style', function () {
     gulp.src(path.src.style)
         .pipe(cssmin())
-        .pipe(gulp.dest(path.build.css))
+        .pipe(gulp.dest(path.build.style))
         .pipe(reload({stream: true}));
+});
+
+gulp.task('clean', function () {
+    del([path.build.jsx, path.build.html]);
 });
 
 gulp.task('build', [
@@ -83,9 +87,5 @@ gulp.task('build', [
     'build:style',
     'build:js'
 ]);
-
-gulp.task('clean', function (cb) {
-    rimraf(path.clean, cb);
-});
 
 gulp.task('default', ['build', 'webserver']);

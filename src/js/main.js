@@ -7,5 +7,5 @@
 /**
  * Custom
  */
-//= ../../build/jsx/Loom.js
-//= ../../build/jsx/weaver.js
+//= modules/Loom.js
+//= modules/weaver.js
