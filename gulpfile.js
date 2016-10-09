@@ -2,10 +2,11 @@
 
 const gulp = require('gulp'),
       run = require('gulp-run'),
-      rigger = require('gulp-rigger'),
       react = require('gulp-react'),
       babel = require('gulp-babel'),
       cssmin = require('gulp-minify-css'),
+      concat = require('gulp-concat'),
+      newer = require('gulp-newer'),
       rimraf = require('rimraf'),
       del = require('del'),
       browserSync = require('browser-sync'),
@@ -15,12 +16,16 @@ const path = {
   src: {
     jsx: 'src/jsx/*.jsx',
     html: 'src/index.html',
+    react: 'bower_components/react/react.js',
+    reactDom: 'bower_components/react/react-dom.js',
     js: 'src/js/main.js',
     style: 'src/css/weaver.css'
   },
   build: {
     jsx: 'src/js/modules/',
     html: 'build/',
+    react: 'build/js/react.js',
+    reactDom: 'build/js/react-dom.js',
     js: 'build/js/',
     style: 'build/css/'
   }
@@ -51,25 +56,36 @@ gulp.task('bower', function() {
 });
 
 gulp.task('build:html', function () {
-    gulp.src(path.src.html)
-        .pipe(rigger())
-        .pipe(gulp.dest(path.build.html))
-        .pipe(reload({stream: true}));
+  gulp.src(path.src.html)
+    .pipe(gulp.dest(path.build.html))
+    .pipe(reload({stream: true}));
+});
+
+gulp.task('copy:react', function () {
+  gulp.src(path.src.react)
+    .pipe(newer(path.build.react))
+    .pipe(gulp.dest(path.build.js))
+});
+
+gulp.task('copy:react-dom', function () {
+  gulp.src(path.src.reactDom)
+    .pipe(newer(path.build.reactDom))
+    .pipe(gulp.dest(path.build.js))
 });
 
 gulp.task('build:jsx', function () {
   gulp.src(path.src.jsx)
     .pipe(react())
     .pipe(babel())
-    .pipe(gulp.dest(path.build.jsx));
+    .pipe(concat('main.js'))
+    .pipe(gulp.dest(path.build.js));
 });
 
-gulp.task('build:js', function () {
-  gulp.src(path.src.js)
-    .pipe(rigger())
-    .pipe(gulp.dest(path.build.js))
-    .pipe(reload({stream: true}));
-});
+gulp.task('build:js', [
+  'copy:react',
+  'copy:react-dom',
+  'build:jsx'
+]);
 
 gulp.task('build:style', function () {
   gulp.src(path.src.style)
@@ -79,13 +95,13 @@ gulp.task('build:style', function () {
 });
 
 gulp.task('clean', function () {
-    del([path.build.jsx, path.build.html]);
+  del([path.build.jsx, path.build.html]);
 });
 
 gulp.task('build', [
-    'build:html',
-    'build:style',
-    'build:js'
+  'build:html',
+  'build:style',
+  'build:js'
 ]);
 
 gulp.task('default', ['build', 'webserver']);
