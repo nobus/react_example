@@ -7,6 +7,7 @@ const gulp = require('gulp'),
       cssmin = require('gulp-minify-css'),
       concat = require('gulp-concat'),
       newer = require('gulp-newer'),
+      browserify = require('gulp-browserify'),
       rimraf = require('rimraf'),
       del = require('del'),
       browserSync = require('browser-sync'),
@@ -16,8 +17,8 @@ const path = {
   src: {
     jsx: 'src/jsx/*.jsx',
     html: 'src/index.html',
-    react: 'bower_components/react/react.js',
-    reactDom: 'bower_components/react/react-dom.js',
+    react: 'node_modules/react/dist/react.min.js',
+    reactDom: 'node_modules/react-dom/dist/react-dom.min.js',
     js: 'src/js/main.js',
     style: 'src/css/weaver.css'
   },
@@ -77,6 +78,7 @@ gulp.task('build:jsx', function () {
     .pipe(react())
     .pipe(babel({presets: ['es2015']}))
     .pipe(concat('main.js'))
+    .pipe(browserify())
     .pipe(gulp.dest(path.build.js));
 });
 

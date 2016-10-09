@@ -19,7 +19,6 @@
     "tests"
   ],
   "dependencies": {
-    "react": "^15.3.2",
     "normalize-css": "normalize.css#^5.0.0"
   }
 }
