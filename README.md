@@ -1,5 +1,5 @@
-# weaver
-Weaver simulator
+# react-example
+React example
 
 Quick start:
 - npm install
